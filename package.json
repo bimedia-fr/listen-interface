@@ -1,0 +1,24 @@
+{
+  "name": "listen-interface",
+  "version": "1.0.0",
+  "description": "module to listen on a specific network interface",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bimedia-fr/listen-interface.git"
+  },
+  "keywords": [
+    "network",
+    "interface",
+    "listen"
+  ],
+  "author": "jerome creignou",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bimedia-fr/listen-interface/issues"
+  },
+  "homepage": "https://github.com/bimedia-fr/listen-interface#readme"
+}
