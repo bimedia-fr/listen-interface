@@ -29,5 +29,5 @@ listen(server, { 'port': 8080, 'interface': 'wlan0'})
  * `config` : 
    * `port` : port to listen to
    * `interface` : network interface to listen to
- * callback
+ * [callback]
  
