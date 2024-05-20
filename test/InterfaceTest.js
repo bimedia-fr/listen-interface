@@ -13,20 +13,74 @@
  * limitations under the License.
  */
 "use strict";
-var test = require('unit.js');
-var listen = require('../lib/interfaces');
+var assert = require('assert');
+var listen = require('../lib/index');
 var os = require('os');
 
 describe('[ARCHITECT][RESTIFY]', function () {
     describe('[INTERFACE]', function () {
-        it('Listener', function (done) {
-            listen({
-                listen: function (port, host) {
-                    test.string(host).is('127.0.0.1');
+        it('default listener ', function (done) {
+            const server = {
+                listen: function (options, cb) {
+                    const host = options.host;
+                    const port = options.port;
+                    assert.strictEqual(typeof host, 'string')
+                    assert.strictEqual(host, '127.0.0.1');
+                    cb();
                 }
-            }, {'interface': Object.keys(os.networkInterfaces())[0], port: 0}, function (err, res) {
-                test.assert.ifError(err);
-                test.object(res).isNotEmpty();
+            };
+            const options = { 
+                'interface': Object.keys(os.networkInterfaces())[0],
+                port: 0
+            };
+            listen(server, options, function (err, res) {
+                assert.ifError(err);
+                assert.ok(res);
+                done();
+            });
+        });
+        it('listen with parameters', function (done) {
+            const server = {
+                listen: function (options, cb) {
+                    const host = options.host;
+                    const port = options.port;
+                    assert.strictEqual(typeof host, 'string')
+                    assert.strictEqual(host, '127.0.0.1');
+                    assert.strictEqual(options.exclusive, true);
+                    cb();
+                }
+            };
+            const options = { 
+                'interface': Object.keys(os.networkInterfaces())[0],
+                port: 0,
+                exclusive: true
+            };
+            listen(server, options, function (err, res) {
+                assert.ifError(err);
+                assert.ok(res);
+                done();
+            });
+        });
+        it('listen should override host', function (done) {
+            const server = {
+                listen: function (options, cb) {
+                    const host = options.host;
+                    const port = options.port;
+                    assert.strictEqual(typeof host, 'string')
+                    assert.strictEqual(host, '127.0.0.1');
+                    assert.strictEqual(options.exclusive, true);
+                    cb();
+                }
+            };
+            const options = { 
+                'interface': Object.keys(os.networkInterfaces())[0],
+                host: '192.168.0.0.17',
+                port: 0,
+                exclusive: true
+            };
+            listen(server, options, function (err, res) {
+                assert.ifError(err);
+                assert.ok(res);
                 done();
             });
         });
